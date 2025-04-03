@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scraping App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    h1 {
+      color: #0056b3;
+    }
+    input, button {
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #003d80;
+    }
+    #status {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #0056b3;
+    }
+    .progress-bar {
+      width: 100%;
+      background-color: #ddd;
+      margin-top: 20px;
+    }
+    .progress-bar-fill {
+      height: 24px;
+      width: 0;
+      background-color: #0056b3;
+      text-align: center;
+      color: white;
+      line-height: 24px;
+    }
+    .output-files {
+      margin-top: 20px;
+    }
+    .output-files a {
+      display: block;
+      margin: 5px 0;
+      color: #0056b3;
+      text-decoration: none;
+    }
+    .output-files a:hover {
+      text-decoration: underline;
+    }
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #0056b3;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Scraping App</h1>
+  <p>Entrez les détails pour scraper les entreprises :</p>
+  <div>
+    <label>Localisation: </label><input type="text" id="location"><br>
+    <label>Catégorie: </label><input type="text" id="category"><br>
+    <label>Nombre maximum de pages: </label><input type="number" id="maxPages" value="5"><br>
+    <label>Répertoire de sortie: </label>
+    <input type="text" id="outputDir" readonly>
+    <button id="selectDirBtn">Sélectionner le répertoire</button><br>
+    <button id="scrapBtn">Scraper les entreprises</button>
+  </div>
+  <div id="status"></div>
+  <div class="progress-bar">
+    <div class="progress-bar-fill" id="progressBarFill"></div>
+  </div>
+  <div class="output-files" id="outputFiles"></div>
+  <div class="notification" id="notification"></div>
+  <canvas id="statsChart" width="400" height="200"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    document.getElementById('selectDirBtn').addEventListener('click', async () => {
+      const directory = await window.electron.selectDirectory();
+      if (directory) {
+        document.getElementById('outputDir').value = directory;
+      }
+    });
+
+    document.getElementById('scrapBtn').addEventListener('click', async () => {
+      const location = document.getElementById('location').value;
+      const category = document.getElementById('category').value;
+      const maxPages = document.getElementById('maxPages').value;
+      const outputDir = document.getElementById('outputDir').value;
+
+      document.getElementById('status').innerText = 'Scraping en cours...';
+      document.getElementById('progressBarFill').style.width = '0%';
+      document.getElementById('outputFiles').innerHTML = '';
+
+      window.electron.startScraping(location, category, maxPages, outputDir);
+    });
+
+    window.electron.onProgressUpdate((progress) => {
+      document.getElementById('progressBarFill').style.width = `${progress}%`;
+      document.getElementById('progressBarFill').innerText = `${progress}%`;
+    });
+
+    window.electron.onScrapingComplete(async () => {
+      document.getElementById('status').innerText = 'Scraping terminé. Fichiers créés.';
+      const outputDir = document.getElementById('outputDir').value;
+      const category = document.getElementById('category').value;
+      const location = document.getElementById('location').value;
+      displayOutputFiles(outputDir, category, location);
+      showNotification('Scraping terminé avec succès!');
+      const data = await window.electron.getScrapedData(outputDir, category, location);
+      displayChart(data);
+    });
+
+    window.electron.onScrapingError((message) => {
+      document.getElementById('status').innerText = `Erreur: ${message}`;
+      showNotification(`Erreur: ${message}`);
+    });
+
+    function displayOutputFiles(outputDir, category, location) {
+      const dateStr = new Date().toISOString().slice(0, 10);
+      const filePrefix = `${outputDir}/${category}_${location}_${dateStr}`;
+      const files = [
+        `${filePrefix}_toutes_entreprises.json`,
+        `${filePrefix}_entreprises_sans_site.txt`,
+        `${filePrefix}_liste_complete.txt`
+      ];
+
+      const outputFilesDiv = document.getElementById('outputFiles');
+      files.forEach(file => {
+        const fileLink = document.createElement('a');
+        fileLink.href = `file://${file}`;
+        fileLink.innerText = file;
+        fileLink.target = '_blank';
+        outputFilesDiv.appendChild(fileLink);
+      });
+    }
+
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      notification.innerText = message;
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 5000);
+    }
+
+    async function displayChart(data) {
+      const ctx = document.getElementById('statsChart').getContext('2d');
+      const labels = data.map(item => item.nom);
+      const siteWeb = data.filter(item => item.siteWeb !== 'Non').length;
+      const sansSiteWeb = data.filter(item => item.siteWeb === 'Non').length;
+      const chartData = {
+        labels: ['Avec site web', 'Sans site web'],
+        datasets: [{
+          label: 'Entreprises',
+          data: [siteWeb, sansSiteWeb],
+          backgroundColor: ['#36a2eb', '#ff6384']
+        }]
+      };
+      new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
