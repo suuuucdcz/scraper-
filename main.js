@@ -1,8 +1,12 @@
 const { app, BrowserWindow, ipcMain, dialog, Notification } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const sqlite3 = require('sqlite3').verbose();
+const XLSX = require('xlsx'); // Importer la bibliothèque xlsx
+
+puppeteer.use(StealthPlugin());
 
 let db;
 
@@ -81,11 +85,19 @@ ipcMain.handle('get-scraped-data', async (event, outputDir, category, location) 
   return JSON.parse(rawData);
 });
 
+// Nouvelle fonction pour convertir JSON en Excel
+function convertJsonToExcel(jsonData, outputFilePath) {
+  const ws = XLSX.utils.json_to_sheet(jsonData);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Entreprises');
+  XLSX.writeFile(wb, outputFilePath);
+}
+
 async function scrapEntreprises(window, location, category, maxPages = 5, outputDir = '.') {
   console.log(`🔍 Recherche des entreprises "${category}" à/en "${location}"...`);
 
   let browser = await puppeteer.launch({
-    headless: true,
+    headless: true, // Exécuter en arrière-plan
     args: ['--no-sandbox', '--window-size=1920x1080']
   });
   let page = await browser.newPage();
@@ -93,6 +105,7 @@ async function scrapEntreprises(window, location, category, maxPages = 5, output
 
   let toutesEntreprises = [];
   let totalEntreprises = 0;
+  let totalPagesScrapped = 0;
 
   try {
     let baseUrl = `https://www.pagesjaunes.fr/annuaire/chercherlespros?quoiqui=${encodeURIComponent(category)}&ou=${encodeURIComponent(location)}`;
@@ -147,6 +160,7 @@ async function scrapEntreprises(window, location, category, maxPages = 5, output
 
       const detailLinks = await page.evaluate(() => {
         return Array.from(document.querySelectorAll('.bi-denomination'))
+		  .slice(0, 20) // ✅ Limite à 20 résultats par page
           .map(el => {
             let link = null;
             if (el.tagName === 'A') {
@@ -166,6 +180,7 @@ async function scrapEntreprises(window, location, category, maxPages = 5, output
       console.log(`🔗 ${detailLinks.length} liens d'entreprises trouvés sur cette page`);
 
       totalEntreprises += detailLinks.length;
+      totalPagesScrapped++;
 
       for (let i = 0; i < detailLinks.length; i++) {
         const { link, name } = detailLinks[i];
@@ -240,7 +255,7 @@ async function scrapEntreprises(window, location, category, maxPages = 5, output
 
           toutesEntreprises.push(detailsInfo);
 
-          const progress = Math.round((toutesEntreprises.length / totalEntreprises) * 100);
+          const progress = Math.round(((totalPagesScrapped / maxPages) * 0.5 + (toutesEntreprises.length / totalEntreprises) * 0.5) * 100);
           window.webContents.send('progress-update', progress);
 
           await new Promise(resolve => setTimeout(resolve, 1000));
@@ -305,6 +320,10 @@ async function scrapEntreprises(window, location, category, maxPages = 5, output
 
     fs.writeFileSync(`${filePrefix}_liste_complete.txt`, allTxtContent);
 
+    // Convertir le fichier JSON en fichier Excel
+    const excelFilePath = `${filePrefix}_toutes_entreprises.xlsx`;
+    convertJsonToExcel(toutesEntreprises, excelFilePath);
+
     console.log(`\n📊 RÉSULTATS:`);
     console.log(`📋 Total des entreprises trouvées: ${toutesEntreprises.length}`);
     console.log(`🔍 Entreprises sans site web: ${entreprisesSansSite.length}`);
@@ -314,6 +333,7 @@ async function scrapEntreprises(window, location, category, maxPages = 5, output
     console.log(`   1. ${filePrefix}_toutes_entreprises.json`);
     console.log(`   2. ${filePrefix}_entreprises_sans_site.txt`);
     console.log(`   3. ${filePrefix}_liste_complete.txt`);
+    console.log(`   4. ${excelFilePath}`);
 
     await browser.close();
     window.webContents.send('scraping-complete');
