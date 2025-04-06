@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Boulanger - Excellence en Pâtisserie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1608190003443-86a8a7f5536e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 90vh;
+        }
+        
+        .product-card:hover .product-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .product-overlay {
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .gold-line {
+            width: 100px;
+            height: 3px;
+            background-color: #D4AF37;
+            margin: 20px auto;
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="flex items-center">
+                        <i class="fas fa-bread-slice text-3xl text-amber-800"></i>
+                        <span class="ml-2 text-2xl font-bold text-amber-900">Artisan Boulanger</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-amber-900 hover:text-amber-700 transition">Accueil</a>
+                    <a href="#products" class="text-amber-900 hover:text-amber-700 transition">Nos Produits</a>
+                    <a href="#story" class="text-amber-900 hover:text-amber-700 transition">Notre Histoire</a>
+                    <a href="#contact" class="text-amber-900 hover:text-amber-700 transition">Contact</a>
+                    <a href="#" class="bg-amber-800 text-white px-4 py-2 rounded hover:bg-amber-700 transition">Commander</a>
+                </div>
+                <div class="md:hidden">
+                    <button class="mobile-menu-button p-2 focus:outline-none">
+                        <i class="fas fa-bars text-2xl text-amber-900"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="mobile-menu hidden md:hidden bg-white shadow-lg">
+            <a href="#home" class="block py-2 px-4 text-amber-900 hover:bg-amber-50">Accueil</a>
+            <a href="#products" class="block py-2 px-4 text-amber-900 hover:bg-amber-50">Nos Produits</a>
+            <a href="#story" class="block py-2 px-4 text-amber-900 hover:bg-amber-50">Notre Histoire</a>
+            <a href="#contact" class="block py-2 px-4 text-amber-900 hover:bg-amber-50">Contact</a>
+            <a href="#" class="block py-2 px-4 bg-amber-800 text-white">Commander</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero flex items-center justify-center text-center text-white pt-20">
+        <div class="max-w-4xl px-6">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">L'art de la tradition, revisité avec passion</h1>
+            <div class="gold-line"></div>
+            <p class="text-xl md:text-2xl mb-10">Découvrez nos créations artisanales faites avec des ingrédients d'exception et un savoir-faire ancestral</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#products" class="bg-amber-800 hover:bg-amber-700 text-white px-8 py-3 rounded text-lg transition">Nos Spécialités</a>
+                <a href="#" class="border-2 border-white hover:bg-white hover:text-amber-900 text-white px-8 py-3 rounded text-lg transition">Commander</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialties Section -->
+    <section class="py-20 bg-amber-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-amber-900 mb-4">Nos Spécialités</h2>
+                <div class="gold-line"></div>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600">Chaque produit est une œuvre d'art culinaire, préparée avec soin et passion par nos maîtres boulangers</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Viennoiseries -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1558315957-d6be47dfadeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Viennoiseries" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-2xl font-bold text-white">Viennoiseries</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Croissants au beurre AOP, pains au chocolat, brioches feuilletées et autres délices du petit-déjeuner.</p>
+                        <a href="#" class="text-amber-800 hover:text-amber-700 font-semibold flex items-center">
+                            Découvrir <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Pains Spéciaux -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1608190003443-86a8a7f5536e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Pains Spéciaux" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-2xl font-bold text-white">Pains Spéciaux</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Pains au levain naturel, baguettes tradition, pains complets bio et créations saisonnières.</p>
+                        <a href="#" class="text-amber-800 hover:text-amber-700 font-semibold flex items-center">
+                            Découvrir <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Pâtisseries -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1552689486-6772f3c8d1a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Pâtisseries" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-2xl font-bold text-white">Pâtisseries</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Éclairs, tartes, entremets et desserts signature élaborés avec des produits d'exception.</p>
+                        <a href="#" class="text-amber-800 hover:text-amber-700 font-semibold flex items-center">
+                            Découvrir <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Section -->
+    <section class="parallax py-32" style="background-image: url('https://images.unsplash.com/photo-1603532648955-039310d9ed75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+        <div class="max-w-4xl mx-auto px-6 text-center text-white bg-black/50 py-12 rounded">
+            <h2 class="text-4xl font-bold mb-6">L'excellence dans chaque détail</h2>
+            <p class="text-xl mb-8">Nous sélectionnons uniquement les meilleurs ingrédients : beurre AOP Charentes-Poitou, farine de meule bio, chocolat Valrhona, et fruits de saison locaux.</p>
+            <a href="#" class="bg-amber-800 hover:bg-amber-700 text-white px-8 py-3 rounded text-lg transition">Découvrir nos ingrédients</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-amber-900 mb-4">Nos Produits Phares</h2>
+                <div class="gold-line"></div>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600">Découvrez nos créations signature qui font la réputation de notre maison</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1 -->
+                <div class="product-card relative bg-white rounded-lg shadow-lg overflow-hidden group">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Croissant au Beurre AOP" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-amber-900 mb-2">Croissant au Beurre AOP</h3>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-amber-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 ml-2">(48 avis)</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Croissant feuilleté réalisé avec du beurre AOP Charentes-Poitou, pour un goût incomparable.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-amber-900">3,50 €</span>
+                            <button class="bg-amber-800 hover:bg-amber-700 text-white px-4 py-2 rounded transition">Ajouter</button>
+                        </div>
+                    </div>
+                    <div class="product-overlay absolute inset-0 bg-black/70 flex items-center justify-center p-6">
+                        <div class="text-center text-white">
+                            <h3 class="text-2xl font-bold mb-2">Croissant au Beurre AOP</h3>
+                            <p class="mb-4">Notre croissant signature, croustillant à l'extérieur et moelleux à l'intérieur.</p>
+                            <a href="#" class="inline-block bg-white text-amber-900 px-6 py-2 rounded hover:bg-amber-100 transition">Voir détails</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card relative bg-white rounded-lg shadow-lg overflow-hidden group">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Pain au Levain Naturel" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-amber-900 mb-2">Pain au Levain Naturel</h3>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-amber-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-600 ml-2">(36 avis)</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Pain rustique au levain naturel, fermentation lente 48h, croûte épaisse et mie alvéolée.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-amber-900">5,20 €</span>
+                            <button class="bg-amber-800 hover:bg-amber-700 text-white px-4 py-2 rounded transition">Ajouter</button>
+                        </div>
+                    </div>
+                    <div class="product-overlay absolute inset-0 bg-black/70 flex items-center justify-center p-6">
+                        <div class="text-center text-white">
+                            <h3 class="text-2xl font-bold mb-2">Pain au Levain Naturel</h3>
+                            <p class="mb-4">Notre pain signature, préparé avec une farine de meule bio et un levain vieux de 15 ans.</p>
+                            <a href="#" class="inline-block bg-white text-amber-900 px-6 py-2 rounded hover:bg-amber-100 transition">Voir détails</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card relative bg-white rounded-lg shadow-lg overflow-hidden group">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1558315957-d6be47dfadeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tarte aux Fraises" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-amber-900 mb-2">Tarte aux Fraises Gariguette</h3>
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-amber-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-600 ml-2">(52 avis)</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Tarte fine avec crème pâtissière vanille Bourbon et fraises Gariguette du Lot-et-Garonne.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-amber-900">7,80 €</span>
+                            <button class="bg-amber-800 hover:bg-amber-700 text-white px-4 py-2 rounded transition">Ajouter</button>
+                        </div>
+                    </div>
+                    <div class="product-overlay absolute inset-0 bg-black/70 flex items-center justify-center p-6">
+                        <div class="text-center text-white">
+                            <h3 class="text-2xl font-bold mb-2">Tarte aux Fraises Gariguette</h3>
+                            <p class="mb-4">Notre tarte signature, disponible uniquement pendant la saison des fraises (mai à juillet).</p>
+                            <a href="#" class="inline-block bg-white text-amber-900 px-6 py-2 rounded hover:bg-amber-100 transition">Voir détails</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block border-2 border-amber-800 text-amber-800 hover:bg-amber-800 hover:text-white px-8 py-3 rounded text-lg transition">Voir tout notre catalogue</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="story" class="py-20 bg-amber-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-amber-900 mb-4">Notre Histoire</h2>
+                <div class="gold-line"></div>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600">Une passion familiale transmise depuis trois générations</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <div class="relative h-96 rounded-lg overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1606471406165-0afaa0a7d6b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Notre boulangerie" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <p class="text-sm">Notre atelier à Paris, où la magie opère depuis 1952</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-3xl font-bold text-amber-900 mb-6">L'héritage d'un savoir-faire</h3>
+                    <p class="text-gray-600 mb-4">Fondée en 1952 par Pierre Lefèvre, notre boulangerie artisanale perpétue depuis trois générations les techniques traditionnelles tout en innovant avec créativité.</p>
+                    <p class="text-gray-600 mb-6">Chaque jour, nous pétrissons, façonnons et cuisons à la main nos produits avec des ingrédients rigoureusement sélectionnés pour leur qualité et leur traçabilité.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-start">
+                            <div class="bg-amber-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-leaf text-amber-800 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-amber-900 mb-1">Ingrédients Bio</h4>
+                                <p class="text-gray-600 text-sm">90% de nos ingrédients sont issus de l'agriculture biologique</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-amber-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-heart text-amber-800 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-amber-900 mb-1">Fait Main</h4>
+                                <p class="text-gray-600 text-sm">Tous nos produits sont fabriqués artisanalement sans automation</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-amber-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-seedling text-amber-800 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-amber-900 mb-1">Levain Naturel</h4>
+                                <p class="text-gray-600 text-sm">Notre levain maison est entretenu depuis 15 ans sans interruption</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-amber-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-award text-amber-800 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-amber-900 mb-1">Récompenses</h4>
+                                <p class="text-gray-600 text-sm">Meilleure Boulangerie de Paris 2022 - Guide Michelin</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="inline-block bg-amber-800 hover:bg-amber-700 text-white px-6 py-3 rounded transition">Rencontrer notre équipe</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-amber-900 mb-4">Ce qu'ils disent de nous</h2>
+                <div class="gold-line"></div>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600">Les témoignages de nos clients satisfaits</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-amber-50 p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"Les meilleurs croissants de Paris ! La texture est parfaite, croustillante à l'extérieur et moelleuse à l'intérieur, avec ce goût incomparable de beurre AOP."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sophie Martin" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-amber-900">Sophie Martin</h4>
+                            <p class="text-gray-600 text-sm">Client depuis 5 ans</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-amber-50 p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"Je commande leur pain au levain chaque semaine. La qualité est exceptionnelle et constante. Le service est toujours impeccable et personnalisé."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Jean Dubois" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-amber-900">Jean Dubois</h4>
+                            <p class="text-gray-600 text-sm">Abonné Box Gourmande</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-amber-50 p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"Pour notre mariage, ils ont créé une pièce montée sublime qui a émerveillé tous nos invités. Le goût était à la hauteur de la beauté de la création."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Camille Leroy" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-bold text-amber-900">Camille Leroy</h4>
+                            <p class="text-gray-600 text-sm">Événement spécial</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-amber-800 text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-4">Abonnez-vous à notre newsletter</h2>
+            <p class="mb-8 text-amber-100">Recevez nos offres exclusives, les nouveautés saisonnières et des conseils de nos chefs</p>
+            
+            <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" placeholder="Votre email" class="flex-grow px-4 py-3 rounded focus:outline-none text-gray-800">
+                <button type="submit" class="bg-white text-amber-800 hover:bg-amber-100 px-6 py-3 rounded font-semibold transition">S'abonner</button>
+            </form>
+            
+            <p class="mt-4 text-sm text-amber-100">Nous respectons votre vie privée. Désabonnez-vous à tout moment.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-amber-900 mb-4">Nous Contacter</h2>
+                <div class="gold-line"></div>
+                <p class="max-w-2xl mx-auto text-lg text-gray-600">Nous sommes à votre disposition pour répondre à toutes vos questions</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-bold text-amber-900 mb-6">Envoyez-nous un message</h3>
+                        
+                        <form>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-gray-700 mb-2">Nom</label>
+                                    <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-gray-700 mb-2">Email</label>
+                                    <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-amber-500">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="subject" class="block text-gray-700 mb-2">Sujet</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 mb-2">Message</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="bg-amber-800 hover:bg-amber-700 text-white px-6 py-3 rounded transition">Envoyer le message</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-amber-50 rounded-lg shadow-lg p-8 h-full">
+                        <h3 class="text-2xl font-bold text-amber-900 mb-6">Nos Coordonnées</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-amber-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-amber-800"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-amber-900 mb-1">Adresse</h4>
+                                    <p class="text-gray-600">24 Rue du Faubourg Saint-Honoré, 75008 Paris</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-amber-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt text-amber-800"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-amber-900 mb-1">Téléphone</h4>
+                                    <p class="text-gray-600">+33 1 42 68 53 42</p>
+                                    <p class="text-gray-600 text-sm mt-1">Lundi au Samedi : 8h-19h</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-amber-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-amber-800"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-amber-900 mb-1">Email</h4>
+                                    <p class="text-gray-600">contact@artisanboulanger.com</p>
+                                    <p class="text-gray-600 text-sm mt-1">Réponse sous 24h</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-amber-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-calendar-alt text-amber-800"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-amber-900 mb-1">Événements</h4>
+                                    <p class="text-gray-600">Pour les demandes spéciales (mariages, entreprises), contactez-nous au moins 3 semaines à l'avance.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-bold text-amber-900 mb-4">Suivez-nous</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="bg-amber-100 hover:bg-amber-200 p-3 rounded-full transition">
+                                    <i class="fab fa-instagram text-amber-800"></i>
+                                </a>
+                                <a href="#" class="bg-amber-100 hover:bg-amber-200 p-3 rounded-full transition">
+                                    <i class="fab fa-facebook-f text-amber-800"></i>
+                                </a>
+                                <a href="#" class="bg-amber-100 hover:bg-amber-200 p-3 rounded-full transition">
+                                    <i class="fab fa-pinterest-p text-amber-800"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div class="h-96 w-full">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9916256937596!2d2.292292615638511!3d48.85837007928746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1623252617899!5m2!1sfr!2sfr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-amber-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a href="#" class="flex items-center mb-6">
+                        <i class="fas fa-bread-slice text-3xl text-amber-200"></i>
+                        <span class="ml-2 text-2xl font-bold text-white">Artisan Boulanger</span>
+                    </a>
+                    <p class="text-amber-200 mb-4">L'excellence artisanale depuis 1952.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-amber-200 hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-amber-200 hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-amber-200 hover:text-white transition">
+                            <i class="fab fa-pinterest-p"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Navigation</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-amber-200 hover:text-white transition">Accueil</a></li>
+                        <li><a href="#products" class="text-amber-200 hover:text-white transition">Nos Produits</a></li>
+                        <li><a href="#story" class="text-amber-200 hover:text-white transition">Notre Histoire</a></li>
+                        <li><a href="#contact" class="text-amber-200 hover:text-white transition">Contact</a></li>
+                        <li><a href="#" class="text-amber-200 hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Informations</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-amber-200 hover:text-white transition">Mentions légales</a></li>
+                        <li><a href="#" class="text-amber-200 hover:text-white transition">CGV</a></li>
+                        <li><a href="#" class="text-amber-200 hover:text-white transition">Politique de confidentialité</a></li>
+                        <li><a href="#" class="text-amber-200 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-amber-200 hover:text-white transition">Recrutement</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Newsletter</h3>
+                    <p class="text-amber-200 mb-4">Abonnez-vous pour recevoir nos offres exclusives.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Votre email" class="px-4 py-2 rounded-l focus:outline-none text-gray-800 w-full">
+                        <button type="submit" class="bg-amber-700 hover:bg-amber-600 px-4 py-2 rounded-r transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-amber-800 mt-12 pt-8 text-center text-amber-200">
+                <p>&copy; 2023 Artisan Boulanger. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.product-card, .gold-line');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
